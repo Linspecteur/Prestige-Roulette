@@ -2,8 +2,9 @@
   <img src="https://img.shields.io/badge/FiveM-Script-orange?style=for-the-badge&logo=fivem&logoColor=white" />
   <img src="https://img.shields.io/badge/Framework-ESX-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Author-Linspecteur-purple?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=for-the-badge" />
   
-  <h1>🎰 Prestige Roulette (bl_roulette)</h1>
+  <h1>🎰 Prestige Roulette (br_rlte)</h1>
   <p><i>L'expérience de casino ultime pour votre serveur FiveM</i></p>
 </div>
 
@@ -83,3 +84,10 @@ Besoin d'aide ou envie de découvrir d'autres projets ?
 <div align="center">
   <p>Développé avec passion par <b>Linspecteur</b></p>
 </div>
+
+---
+
+## ⚖️ Mentions Légales
+
+Ce projet est protégé par le droit d'auteur. **Toute reproduction ou redistribution non autorisée est interdite.**
+Pour toute demande d'autorisation, veuillez contacter l'auteur via les liens ci-dessus.

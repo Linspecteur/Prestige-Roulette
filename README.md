@@ -3,7 +3,7 @@
   <img src="https://img.shields.io/badge/Framework-ESX-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Author-Linspecteur-purple?style=for-the-badge" />
   
-  <h1>🎰 Prestige Roulette (br_rlte)</h1>
+  <h1>🎰 Prestige Roulette (bl_roulette)</h1>
   <p><i>L'expérience de casino ultime pour votre serveur FiveM</i></p>
 </div>
 

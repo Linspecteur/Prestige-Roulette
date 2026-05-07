@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Royale - Roulette</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Overlay HUD "Ethereal Jewel" Edition -->
+    <div id="overlay" class="overlay hidden">
+        <div class="ethereal-hud">
+            <div class="jewel-wrapper">
+                <i class="fa-solid fa-gem jewel-3d"></i>
+                <div class="jewel-aura"></div>
+            </div>
+            <div class="ethereal-content">
+                <div class="ethereal-tag">CASINO ROYALE</div>
+                <div class="ethereal-title">ROULETTE <span class="gold-text">PRESTIGE</span></div>
+                <div class="ethereal-cmd">Tente ton gain : <span class="neon-cmd">/roulette</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface Principale -->
+    <div id="app" class="hidden">
+        <div class="main-container">
+
+            <!-- Header -->
+            <header class="app-header">
+                <div class="logo-area">
+                    <i class="fa-solid fa-gem"></i>
+                    <h1>PRESTIGE <span>ROULETTE</span></h1>
+                </div>
+                <div id="header-inventory-btn" class="header-action">
+                    <i class="fa-solid fa-box-open"></i>
+                    <span data-i18n="ui_my_lots">MES LOTS</span>
+                    <div id="inventory-badge" class="badge hidden">0</div>
+                </div>
+                <button id="mute-btn" class="icon-btn" data-i18n-title="ui_tooltip_mute" title="Couper le son">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+                <button id="close-btn" class="icon-btn" data-i18n-title="ui_tooltip_close" title="Fermer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </header>
+
+            <main class="app-body">
+
+                <!-- Sidebar gauche -->
+                <aside class="sidebar">
+
+                    <!-- Stats -->
+                    <div class="glass-card stats-card">
+
+                        <!-- Onglets -->
+                        <div class="stats-tabs">
+                            <button id="tab-personal" class="tab-btn active">
+                                <i class="fa-solid fa-user"></i> <span data-i18n="ui_me">MOI</span>
+                            </button>
+                            <button id="tab-global" class="tab-btn">
+                                <i class="fa-solid fa-earth-europe"></i> <span data-i18n="ui_server">SERVEUR</span>
+                            </button>
+                        </div>
+
+                        <!-- Panneau MOI -->
+                        <div id="stats-personal">
+                            <div class="stat-highlight-row">
+                                <div class="stat-hl-box">
+                                    <span class="stat-hl-icon"><i class="fa-solid fa-rotate"></i></span>
+                                    <span class="stat-hl-value" id="stat-my-spins">0</span>
+                                    <span class="stat-hl-label" data-i18n="ui_spins">TOURS</span>
+                                </div>
+                                <div class="stat-hl-divider"></div>
+                                <div class="stat-hl-box">
+                                    <span class="stat-hl-icon gold"><i class="fa-solid fa-sack-dollar"></i></span>
+                                    <span class="stat-hl-value" id="stat-my-money">0$</span>
+                                    <span class="stat-hl-label" data-i18n="ui_won">GAGNÉ</span>
+                                </div>
+                                
+                                <!-- Rangée secondaire intégrée -->
+                                <div class="stat-secondary-inline">
+                                    <div class="stat-sec-item">
+                                        <i class="fa-solid fa-gun"></i>
+                                        <span id="stat-my-weapons">0</span>
+                                    </div>
+                                    <div class="stat-sec-item">
+                                        <i class="fa-solid fa-car"></i>
+                                        <span id="stat-my-vehicles">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panneau SERVEUR -->
+                        <div id="stats-global" class="hidden">
+                            <div class="server-stats-grid">
+                                <div class="srv-stat">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <div>
+                                        <span class="srv-val" id="stat-spins">0</span>
+                                        <span class="srv-lbl" data-i18n="ui_total_spins">Tours Total</span>
+                                    </div>
+                                </div>
+                                <div class="srv-stat gold-border">
+                                    <i class="fa-solid fa-coins" style="color:#f1c40f"></i>
+                                    <div>
+                                        <span class="srv-val gold" id="stat-money">0$</span>
+                                        <span class="srv-lbl" data-i18n="ui_total_distributed">Gains Distribués</span>
+                                    </div>
+                                </div>
+                                <div class="srv-stat">
+                                    <i class="fa-solid fa-gun" style="color:#e67e22"></i>
+                                    <div>
+                                        <span class="srv-val" id="stat-weapons">0</span>
+                                        <span class="srv-lbl" data-i18n="ui_weapons">Armes</span>
+                                    </div>
+                                </div>
+                                <div class="srv-stat">
+                                    <i class="fa-solid fa-car" style="color:#3498db"></i>
+                                    <div>
+                                        <span class="srv-val" id="stat-vehicles">0</span>
+                                        <span class="srv-lbl" data-i18n="ui_vehicles">Véhicules</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Derniers Gagnants -->
+                    <div class="glass-card feed-card">
+                        <div class="feed-header">
+                            <div class="feed-title">
+                                <i class="fa-solid fa-trophy"></i>
+                                <span data-i18n="ui_recent_winners">DERNIERS GAGNANTS</span>
+                            </div>
+                            <div class="live-indicator">
+                                <span class="dot"></span> LIVE
+                            </div>
+                        </div>
+                        <div id="winners-feed" class="winners-list">
+                            <div class="empty-feed" data-i18n="ui_waiting_winners">En attente de gagnants...</div>
+                        </div>
+                    </div>
+
+                    <!-- Boutons d'action et signature -->
+                    <div class="sidebar-footer">
+                        <div class="action-buttons-sidebar">
+                            <button id="open-info-btn" class="fab-btn" data-i18n-title="ui_tooltip_info" title="Récompenses"><i class="fa-solid fa-circle-info"></i></button>
+                            <button id="open-promo-btn" class="fab-btn" data-i18n-title="ui_tooltip_promo" title="Code Promo"><i class="fa-solid fa-ticket"></i></button>
+                            <button id="open-admin-btn" class="fab-btn hidden" data-i18n-title="ui_tooltip_admin" title="Panel Admin"><i class="fa-solid fa-lock-open"></i></button>
+                        </div>
+                        <div class="author-credit">Made by <span>Linspecteur</span></div>
+                    </div>
+
+                </aside>
+
+                <!-- Zone Roulette -->
+                <section class="roulette-section">
+                    
+                    <!-- Bannière victoire (déplacée ici pour être au dessus de tout) -->
+                    <div id="victory-banner" class="hidden">
+                        <div class="banner-overlay"></div>
+                        <div class="banner-card">
+                            <div class="banner-shimmer"></div>
+                            <i class="fa-solid fa-crown banner-icon"></i>
+                            <h2 class="banner-title" data-i18n="ui_congrats">FÉLICITATIONS !</h2>
+                            <p id="winner-reward-display" class="banner-reward">Vous avez gagné !</p>
+                            <div class="banner-particles"></div>
+                        </div>
+                    </div>
+
+                    <div class="wheel-wrapper">
+                        <!-- Indicateur -->
+                        <div class="wheel-indicator">
+                            <div class="indicator-point"></div>
+                        </div>
+
+                        <!-- Conteneur roue -->
+                        <div class="wheel-container">
+                            <div class="wheel-outer-ring"></div>
+                            <div class="wheel-pins">
+                                <!-- Pins générés -->
+                                <div class="pin" style="transform: rotate(0deg) translateY(-185px)"></div>
+                                <div class="pin" style="transform: rotate(45deg) translateY(-185px)"></div>
+                                <div class="pin" style="transform: rotate(90deg) translateY(-185px)"></div>
+                                <div class="pin" style="transform: rotate(135deg) translateY(-185px)"></div>
+                                <div class="pin" style="transform: rotate(180deg) translateY(-185px)"></div>
+                                <div class="pin" style="transform: rotate(225deg) translateY(-185px)"></div>
+                                <div class="pin" style="transform: rotate(270deg) translateY(-185px)"></div>
+                                <div class="pin" style="transform: rotate(315deg) translateY(-185px)"></div>
+                            </div>
+                            <div id="wheel" class="wheel"></div>
+                            <div id="fireworks-container"></div>
+                            <div id="win-flash-overlay"></div>
+                            <div class="wheel-center">
+                                <div class="inner-circle">
+                                    <i class="fa-solid fa-gem"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Coût & bouton -->
+                    <div class="spin-controls">
+                        <div class="status-row">
+                            <div class="cost-display">
+                                <span data-i18n="ui_cost">Coût : </span><span id="spin-cost-display">5000$</span>
+                            </div>
+                        </div>
+                        
+                        <div class="spin-action-row">
+                            <button id="spin-btn" class="spin-button">
+                                <span data-i18n="ui_spin_button">LANCER LA ROULETTE</span>
+                            </button>
+                        </div>
+
+                        <div id="free-spins-badge" class="free-spins-text-info hidden">
+                            <i class="fa-solid fa-star"></i>
+                            <span><span data-i18n="ui_free_spins">Tours gratuits disponibles : </span><b id="free-spins-count">0</b></span>
+                        </div>
+                    </div>
+
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal Inventaire (Mes Lots) -->
+    <div id="inventory-modal" class="modal-overlay hidden">
+        <div class="modal-card inventory-card">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-box-open"></i> <span data-i18n="ui_my_lots">MES LOTS</span></h2>
+                <div class="inventory-count"><span id="inv-count-text">0</span> objet(s)</div>
+            </div>
+            <div id="inventory-items-list" class="inventory-grid">
+                <!-- Items injectés ici -->
+                <div class="empty-inventory" data-i18n="ui_empty_inventory">Vous n'avez aucun lot en attente.</div>
+            </div>
+            <div class="modal-actions">
+                <button id="close-inventory-btn" class="btn-secondary" data-i18n="ui_close">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Récompenses -->
+    <div id="info-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h2><i class="fa-solid fa-gift"></i> <span data-i18n="ui_tooltip_info">Récompenses</span></h2>
+            <div class="info-desc" data-i18n="ui_info_desc">Voici la liste des lots que vous pouvez gagner :</div>
+            <div id="rewards-list-container" class="rewards-grid">
+                <!-- Généré par JS -->
+            </div>
+            <div class="modal-actions">
+                <button id="close-info-btn" class="btn-secondary" data-i18n="ui_close">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Code Promo -->
+    <div id="promo-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h2><i class="fa-solid fa-ticket"></i> <span data-i18n="ui_promo_code">Code Promo</span></h2>
+            <input type="text" id="promo-code-input" data-i18n-placeholder="ui_enter_code" placeholder="ENTREZ VOTRE CODE" maxlength="20">
+            <div class="modal-actions">
+                <button id="apply-promo-btn" class="btn-primary" data-i18n="ui_apply">Appliquer</button>
+                <button id="cancel-promo-btn" class="btn-secondary" data-i18n="ui_cancel">Annuler</button>
+            </div>
+            <p id="promo-message" class="promo-msg"></p>
+        </div>
+    </div>
+
+    <!-- Modal Admin -->
+    <div id="admin-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h2><i class="fa-solid fa-shield"></i> <span data-i18n="ui_admin_panel">Panel Admin</span></h2>
+            <div class="admin-section">
+                <h3 data-i18n="ui_admin_give">Donner des tours gratuits</h3>
+                <input type="number" id="admin-target-id" placeholder="ID">
+                <input type="number" id="admin-spins-amount" placeholder="Tours">
+                <button id="admin-give-spins-btn" class="btn-primary" data-i18n="ui_give">Donner</button>
+            </div>
+            <div class="admin-section">
+                <h3 data-i18n="ui_admin_create_promo">Créer un code promo</h3>
+                <input type="text" id="admin-promo-code" placeholder="Code">
+                <input type="number" id="admin-promo-spins" placeholder="Tours">
+                <button id="admin-create-promo-btn" class="btn-primary" data-i18n="ui_create">Créer</button>
+            </div>
+            <div class="admin-section">
+                <button id="admin-reset-stats-btn" class="btn-danger" data-i18n="ui_admin_reset">Réinitialiser les stats</button>
+            </div>
+            <div class="admin-section webhook-section" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                <h3 data-i18n="ui_admin_webhook">Connecter Discord (Logs)</h3>
+                <input type="text" id="admin-webhook-url" placeholder="https://discord.com/api/webhooks/...">
+                <button id="admin-save-webhook-btn" class="btn-primary" data-i18n="ui_save">Sauvegarder</button>
+            </div>
+            <p id="admin-message" class="promo-msg"></p>
+            <button id="cancel-admin-btn" class="btn-secondary" style="margin-top:1rem;" data-i18n="ui_close">Fermer</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
